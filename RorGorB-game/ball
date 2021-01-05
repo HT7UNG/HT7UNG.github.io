@@ -1,0 +1,44 @@
+function random(min, max) {
+  const num = Math.floor(Math.random() * (max - min + 1)) + min;
+  return num;
+}
+
+//balls
+function Ball(x, y, velX, velY, color, size) {
+  this.x = x;
+  this.y = y;
+  this.velX = velX;
+  this.velY = velY;
+  this.color = color;
+  this.size = size;
+} 
+
+Ball.prototype.draw = function() {
+  ctx.beginPath();
+  ctx.fillStyle = this.color;
+  ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+Ball.prototype.update = function() {
+  this.x += this.velX;
+  this.y += this.velY;
+}
+
+let balls = [];
+
+while (balls.length < 3) {
+  let size = 20
+  let ball = new Ball(
+    // ball position always drawn at least one ball width
+    // away from the edge of the canvas, to avoid drawing errors
+    random(1,3),
+    random(0 + size,height - size),
+    0,
+    1,
+    'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')',
+    size
+  );
+
+  balls.push(ball);
+}
